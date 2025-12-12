@@ -13,7 +13,7 @@ import plotly.express as px
 from html import escape
 import streamlit.components.v1 as components
 
-DATA_PATH = "https://www.dropbox.com/scl/fi/owb8ss34vxpgx9jkhvrmu/t20_bbb.csv?rlkey=go0772z0mtamilzof93yjcon8&st=vn470yul&dl=1"
+DATA_PATH = "https://drive.google.com/file/d/1Wxbt1QLDUrVnv9Ocwy0HQVN4q1vESlw_/view?usp=share_link"
 
 # -------------------------
 # Wagon Wheel plotter
@@ -183,7 +183,7 @@ def get_bg_colors(bg="dark"):
 # -------------------------
 import time
 
-@st.cache_data(show_spinner="Loading 1M+ T20 deliveries... (first load ~45 sec)")
+@st.cache_data(show_spinner="Loading 1M+ T20 deliveries... (first load may take some while)")
 def load_data(path=DATA_PATH):
     import time
     for attempt in range(3):
@@ -205,7 +205,7 @@ def load_data(path=DATA_PATH):
             time.sleep(5)
     st.error("Could not load data after 3 attempts. Running with empty dataset.")
     return pd.DataFrame()
-    
+
 # -------------------------
 # Empty plot helper
 # -------------------------
