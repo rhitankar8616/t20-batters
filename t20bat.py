@@ -13,7 +13,7 @@ import plotly.express as px
 from html import escape
 import streamlit.components.v1 as components
 
-DATA_PATH = "https://www.dropbox.com/scl/fi/owb8ss34vxpgx9jkhvrmu/t20_bbb.csv?rlkey=go0772z0mtamilzof93yjcon8&st=vn470yul&dl=1"
+DATA_PATH = "data/t20_bbb.csv.gz"
 
 # -------------------------
 # Wagon Wheel plotter
@@ -184,7 +184,7 @@ def get_bg_colors(bg="dark"):
 @st.cache_data
 def load_data(path=DATA_PATH):
     try:
-        df = pd.read_csv(path, low_memory=False)
+        df = pd.read_csv(path, compression="gzip", low_memory=False)
     except FileNotFoundError:
         return pd.DataFrame()
     df.columns = [c.strip() for c in df.columns]
