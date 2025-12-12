@@ -13,7 +13,7 @@ import plotly.express as px
 from html import escape
 import streamlit.components.v1 as components
 
-DATA_PATH = "https://www.dropbox.com/scl/fi/owb8ss34vxpgx9jkhvrmu/t20_bbb.csv?rlkey=go0772z0mtamilzof93yjcon8DATA_PATH = "https://www.dropbox.com/scl/fi/owb8ss34vxpgx9jkhvrmu/t20_bbb.csv?rlkey=go0772z0mtamilzof93yjcon8DATA_PATH = "data/t20_bbb.csv.gz"st=vn470yulDATA_PATH = "data/t20_bbb.csv.gz"dl=1"st=vn470yulDATA_PATH = "https://www.dropbox.com/scl/fi/owb8ss34vxpgx9jkhvrmu/t20_bbb.csv?rlkey=go0772z0mtamilzof93yjcon8DATA_PATH = "data/t20_bbb.csv.gz"st=vn470yulDATA_PATH = "data/t20_bbb.csv.gz"dl=1"dl=1"
+DATA_PATH = "https://www.dropbox.com/scl/fi/owb8ss34vxpgx9jkhvrmu/t20_bbb.csv?rlkey=go0772z0mtamilzof93yjcon8&st=vn470yul&dl=1"
 
 # -------------------------
 # Wagon Wheel plotter
@@ -183,13 +183,14 @@ def get_bg_colors(bg="dark"):
 # -------------------------
 import time
 
-@st.cache_data(show_spinner="Loading 1M+ T20 ball-by-ball records... (first load ~45 sec)")
+@st.cache_data(show_spinner="Loading 1M+ T20 deliveries... (first load ~45 sec)")
 def load_data(path=DATA_PATH):
+    import time
     for attempt in range(3):
         try:
-            st.info(f"Downloading full dataset... (attempt {attempt+1}/3)")
-            df = pd.read_csv(path, low_memory=False)
-            st.success(f"Loaded {len(df):,} deliveries successfully!")
+            with st.spinner(f"Downloading full dataset... (attempt {attempt+1}/3)"):
+                df = pd.read_csv(path, low_memory=False)
+            st.success(f"Loaded {len(df):,} deliveries!")
             df.columns = [c.strip() for c in df.columns]
             for c in df.select_dtypes(include=["object"]).columns:
                 df[c] = df[c].replace("", np.nan)
@@ -200,10 +201,11 @@ def load_data(path=DATA_PATH):
                     pass
             return df
         except Exception as e:
-            st.warning(f"Attempt {attempt+1} failed: {str(e)[:120]}")
+            st.warning(f"Attempt {attempt+1} failed: {str(e)[:100]}")
             time.sleep(5)
-    st.error("Failed to load full dataset after 3 attempts. App will run with no data.")
+    st.error("Could not load data after 3 attempts. Running with empty dataset.")
     return pd.DataFrame()
+    
 # -------------------------
 # Empty plot helper
 # -------------------------
