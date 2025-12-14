@@ -12,6 +12,10 @@ import plotly.graph_objects as go
 import plotly.express as px
 from html import escape
 import streamlit.components.v1 as components
+import os
+
+st.write("CWD:", os.getcwd())
+st.write("Files:", os.listdir("."))
 
 DATA_PATH = "t20_bbb.parquet"
 
