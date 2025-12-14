@@ -13,7 +13,7 @@ import plotly.express as px
 from html import escape
 import streamlit.components.v1 as components
 
-DATA_PATH = "https://github.com/rhitankar8616/t20-batters/releases/download/v1.0/t20_bbb.csv"
+DATA_PATH = "t20_bbb-sample.csv"
 
 # -------------------------
 # Wagon Wheel plotter
