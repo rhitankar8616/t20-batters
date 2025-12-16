@@ -183,7 +183,6 @@ def get_bg_colors(bg="dark"):
 # -------------------------
 import time
 
-@st.cache_resource(show_spinner="Loading 1M+ T20 deliveries... (first load may take some while)")
 def load_data(path=DATA_PATH):
     for attempt in range(3):
         try:
