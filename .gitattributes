@@ -1,3 +1,0 @@
-t20bat.csv filter=lfs diff=lfs merge=lfs -text
-t20bbb.csv filter=lfs diff=lfs merge=lfs -text
-t20_bbb.csv filter=lfs diff=lfs merge=lfs -text

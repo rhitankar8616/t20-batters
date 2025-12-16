@@ -12,10 +12,6 @@ import plotly.graph_objects as go
 import plotly.express as px
 from html import escape
 import streamlit.components.v1 as components
-import os
-
-st.write("CWD:", os.getcwd())
-st.write("Files:", os.listdir("."))
 
 DATA_PATH = "t20_bbb.parquet"
 
@@ -187,9 +183,8 @@ def get_bg_colors(bg="dark"):
 # -------------------------
 import time
 
-@st.cache_data(show_spinner="Loading 1M+ T20 deliveries... (first load may take some while)")
+@st.cache_resource(show_spinner="Loading 1M+ T20 deliveries... (first load may take some while)")
 def load_data(path=DATA_PATH):
-    import time
     for attempt in range(3):
         try:
             with st.spinner(f"Downloading full dataset... (attempt {attempt+1}/3)"):
